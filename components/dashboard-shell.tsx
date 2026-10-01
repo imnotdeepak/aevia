@@ -2,24 +2,24 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BarChart3, CalendarCheck2, Grid3X3, House, Settings, Target } from 'lucide-react';
+import { BarChart3, CalendarCheck2, Columns3, Grid3X3, House, Settings } from 'lucide-react';
 
 const navigation = [
   { label: 'Today', href: '/app/today', icon: House },
   { label: 'Habits', href: '/app/habits', icon: Grid3X3 },
   { label: 'Tasks', href: '/app/tasks', icon: CalendarCheck2 },
-  { label: 'Goals', href: '/app/goals', icon: Target },
+  { label: 'Board', href: '/app/board', icon: Columns3 },
   { label: 'Insights', href: '/app/insights', icon: BarChart3 },
 ];
 
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const active = navigation.find((item) => pathname.startsWith(item.href)) ?? navigation[0];
+  const title = pathname.startsWith('/app/settings') ? 'Settings' : (navigation.find((item) => pathname.startsWith(item.href)) ?? navigation[0]).label;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="mx-auto grid h-24 w-[min(calc(100%-32px),1800px)] grid-cols-[1fr_auto_1fr] items-center">
-        <p className="text-lg font-semibold uppercase tracking-[-0.035em]">{active.label}</p>
+        <p className="text-lg font-semibold uppercase tracking-[-0.035em]">{title}</p>
         <nav className="hidden items-center rounded-full border border-border bg-card p-1.5 md:flex" aria-label="Dashboard">
           {navigation.map(({ label, href, icon: Icon }) => {
             const selected = pathname.startsWith(href);
@@ -30,7 +30,8 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             );
           })}
         </nav>
-        <div className="flex justify-end">
+        {/* Column 3 explicitly: on phones the nav is hidden and the gear would otherwise land in the middle. */}
+        <div className="col-start-3 flex justify-end">
           <Link href="/app/settings" aria-label="Settings" className="grid size-11 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"><Settings className="size-5" /></Link>
         </div>
       </header>

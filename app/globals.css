@@ -7,8 +7,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -20,6 +20,7 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-border: var(--border);
@@ -35,56 +36,62 @@
 }
 
 :root {
-  --background: oklch(0.985 0.004 230);
-  --foreground: oklch(0.18 0.012 230);
+  --background: oklch(0.985 0.004 40);
+  --foreground: oklch(0.18 0.012 40);
   --card: oklch(1 0 0);
   --card-foreground: var(--foreground);
   --popover: var(--card);
   --popover-foreground: var(--foreground);
-  --primary: oklch(0.22 0.018 230);
+  --primary: oklch(0.22 0.018 40);
   --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.95 0.008 230);
+  --secondary: oklch(0.95 0.008 40);
   --secondary-foreground: var(--foreground);
-  --muted: oklch(0.95 0.008 230);
-  --muted-foreground: oklch(0.5 0.015 230);
-  --accent: oklch(0.77 0.14 185);
-  --accent-hover: oklch(0.71 0.14 185);
-  --accent-foreground: oklch(0.16 0.025 190);
-  --accent-soft: oklch(0.77 0.14 185 / 14%);
-  --accent-glow: oklch(0.77 0.14 185 / 18%);
+  --muted: oklch(0.95 0.008 40);
+  --muted-foreground: oklch(0.5 0.015 40);
+  --accent: oklch(0.86 0.17 92);
+  --accent-hover: oklch(0.8 0.17 92);
+  --accent-foreground: oklch(0.14 0.02 40);
+  --accent-2: oklch(0.6 0.23 22);
+  --accent-soft: oklch(0.86 0.17 92 / 14%);
+  --accent-glow: oklch(0.86 0.17 92 / 20%);
   --destructive: oklch(0.62 0.23 27);
-  --border: oklch(0.88 0.01 230);
-  --border-strong: oklch(0.72 0.015 230);
+  --border: oklch(0.88 0.01 40);
+  --border-strong: oklch(0.72 0.015 40);
   --input: var(--border);
   --ring: var(--accent);
-  --surface-elevated: oklch(0.97 0.006 230);
+  --surface-elevated: oklch(0.97 0.006 40);
   --radius: 0.8rem;
+  /* Aliases used by the legal pages. They follow the main tokens, including user-chosen colors. */
+  --text-primary: var(--foreground);
+  --text-secondary: color-mix(in srgb, var(--foreground) 80%, var(--background));
+  --text-muted: var(--muted-foreground);
 }
 
 .dark {
-  --background: oklch(0.105 0.008 230);
-  --foreground: oklch(0.96 0.004 230);
-  --card: oklch(0.145 0.01 230);
+  --background: oklch(0.08 0.005 40);
+  --foreground: oklch(0.96 0.004 40);
+  --card: oklch(0.12 0.008 40);
   --card-foreground: var(--foreground);
-  --popover: oklch(0.16 0.01 230);
+  --popover: oklch(0.16 0.01 40);
   --popover-foreground: var(--foreground);
-  --primary: oklch(0.9 0.006 230);
-  --primary-foreground: oklch(0.13 0.01 230);
-  --secondary: oklch(0.19 0.012 230);
+  --primary: oklch(0.9 0.006 40);
+  --primary-foreground: oklch(0.13 0.01 40);
+  --secondary: oklch(0.19 0.012 40);
   --secondary-foreground: var(--foreground);
-  --muted: oklch(0.19 0.012 230);
-  --muted-foreground: oklch(0.68 0.014 230);
-  --accent: oklch(0.77 0.14 185);
-  --accent-hover: oklch(0.82 0.14 185);
-  --accent-foreground: oklch(0.12 0.02 190);
-  --accent-soft: oklch(0.77 0.14 185 / 13%);
-  --accent-glow: oklch(0.77 0.14 185 / 16%);
+  --muted: oklch(0.19 0.012 40);
+  --muted-foreground: oklch(0.68 0.014 40);
+  --accent: oklch(0.86 0.17 92);
+  --accent-hover: oklch(0.91 0.16 93);
+  --accent-foreground: oklch(0.14 0.02 40);
+  --accent-2: oklch(0.6 0.23 22);
+  --accent-soft: oklch(0.86 0.17 92 / 14%);
+  --accent-glow: oklch(0.86 0.17 92 / 20%);
   --destructive: oklch(0.69 0.2 24);
   --border: oklch(1 0 0 / 9%);
   --border-strong: oklch(1 0 0 / 22%);
   --input: oklch(1 0 0 / 13%);
   --ring: var(--accent);
-  --surface-elevated: oklch(0.18 0.01 230);
+  --surface-elevated: oklch(0.17 0.01 40);
 }
 
 @layer base {
