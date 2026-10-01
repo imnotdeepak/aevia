@@ -24,8 +24,11 @@ export default function SignupPage() {
       email: fieldValue(form, 'email'),
       password,
     });
-    setPending(false);
-    if (error) return setError(error.message ?? 'Could not create your account.');
+    if (error) {
+      setPending(false);
+      return setError(error.message ?? 'Could not create your account.');
+    }
+    // Stay in the loading state while the next page opens; leaving the page ends it.
     router.push('/app/today');
     router.refresh();
   }
@@ -46,7 +49,7 @@ export default function SignupPage() {
           <span>I agree to the <Link href="/terms" target="_blank" className="underline underline-offset-4 hover:text-foreground">Terms of Service</Link> and <Link href="/privacy" target="_blank" className="underline underline-offset-4 hover:text-foreground">Privacy Policy</Link>.</span>
         </label>
         <FormError message={error} />
-        <SubmitButton pending={pending}>Create account</SubmitButton>
+        <SubmitButton pending={pending} pendingLabel="Creating your account">Create account</SubmitButton>
       </form>
     </AuthLayout>
   );

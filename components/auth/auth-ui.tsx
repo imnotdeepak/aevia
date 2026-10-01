@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { LoadingOrb } from '@/components/auth/loading-orb';
 import { GradientBackground } from '@/components/ui/paper-design-shader-background';
 import { cn } from '@/lib/utils';
 
@@ -52,14 +53,22 @@ export function FormError({ message }: { message?: string | null }) {
   return <p role="alert" className="rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">{message}</p>;
 }
 
-export function SubmitButton({ children, pending, className }: { children: React.ReactNode; pending?: boolean; className?: string }) {
+export function SubmitButton({ children, pending, pendingLabel = 'Please wait', className }: { children: React.ReactNode; pending?: boolean; pendingLabel?: string; className?: string }) {
   return (
     <button
       type="submit"
       disabled={pending}
-      className={cn('h-12 w-full bg-[var(--accent)] font-semibold text-[var(--accent-foreground)] transition-colors hover:bg-[var(--accent-hover)] disabled:opacity-60', className)}
+      aria-busy={pending}
+      className={cn('h-12 w-full bg-[var(--accent)] font-semibold text-[var(--accent-foreground)] transition-colors hover:bg-[var(--accent-hover)] disabled:cursor-wait disabled:opacity-90', className)}
     >
-      {pending ? 'Please wait…' : children}
+      {pending ? (
+        <span className="flex items-center justify-center gap-3">
+          <LoadingOrb />
+          {pendingLabel}…
+        </span>
+      ) : (
+        children
+      )}
     </button>
   );
 }

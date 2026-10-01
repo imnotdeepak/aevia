@@ -21,8 +21,11 @@ export default function LoginPage() {
       email: fieldValue(form, 'email'),
       password: fieldValue(form, 'password'),
     });
-    setPending(false);
-    if (error) return setError(error.message ?? 'Could not sign in.');
+    if (error) {
+      setPending(false);
+      return setError(error.message ?? 'Could not sign in.');
+    }
+    // Stay in the loading state while the dashboard opens; leaving the page ends it.
     router.push('/app/today');
     router.refresh();
   }
@@ -38,7 +41,7 @@ export default function LoginPage() {
         <FormField id="password" label="Password" type="password" autoComplete="current-password" required />
         <div className="text-right text-sm"><Link href="/forgot-password" className={linkClass}>Forgot password?</Link></div>
         <FormError message={error} />
-        <SubmitButton pending={pending}>Sign in</SubmitButton>
+        <SubmitButton pending={pending} pendingLabel="Signing in">Sign in</SubmitButton>
       </form>
     </AuthLayout>
   );

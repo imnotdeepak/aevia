@@ -35,7 +35,7 @@ function ResetForm() {
       <FormField id="password" label="New password" type="password" autoComplete="new-password" minLength={8} required />
       <FormField id="confirm" label="Confirm new password" type="password" autoComplete="new-password" minLength={8} required />
       <FormError message={error} />
-      <SubmitButton pending={pending}>Set new password</SubmitButton>
+      <SubmitButton pending={pending} pendingLabel="Saving">Set new password</SubmitButton>
     </form>
   );
 }

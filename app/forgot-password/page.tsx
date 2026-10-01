@@ -37,7 +37,7 @@ export default function ForgotPasswordPage() {
         <form onSubmit={onSubmit} className="space-y-5">
           <FormField id="email" label="Email" type="email" autoComplete="email" required />
           <FormError message={error} />
-          <SubmitButton pending={pending}>Send reset link</SubmitButton>
+          <SubmitButton pending={pending} pendingLabel="Sending">Send reset link</SubmitButton>
         </form>
       )}
     </AuthLayout>
