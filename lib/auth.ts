@@ -3,13 +3,14 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
 import { cancelSubscriptionForUser } from '@/lib/billing';
 import { getDb } from '@/lib/db';
+import { trustedOrigins } from '@/lib/trusted-origins';
 import * as schema from '@/lib/db/schema';
 
 function createAuth() {
   return betterAuth({
     database: drizzleAdapter(getDb(), { provider: 'pg', schema }),
-    // Local dev server (next dev -p 3001); 3000 is accepted in case the port is changed back.
-    trustedOrigins: ['http://localhost:3000', 'http://localhost:3001'],
+    // Local dev servers plus the live site, with and without "www." (see lib/trusted-origins).
+    trustedOrigins: trustedOrigins(),
     // Verify sessions from a short-lived signed cookie instead of querying Neon on every
     // page navigation. Sign-out and revocation take effect within maxAge.
     session: { cookieCache: { enabled: true, maxAge: 5 * 60 } },
