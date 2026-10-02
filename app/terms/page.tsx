@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { PRICE_LABEL } from "@/lib/pricing";
+
 export const metadata = {
   title: "Terms of Service | Aevia",
   description: "Aevia Terms of Service",
@@ -129,7 +131,7 @@ export default function TermsOfServicePage() {
 
           <Section title="9. Paid features">
             <p>
-              Aevia is a paid subscription. The current price is US $2 per month, billed monthly through Stripe, and the subscription renews automatically each month until you cancel. The price and billing terms shown at checkout form part of these Terms.
+              Aevia is a paid subscription. The current price is US {PRICE_LABEL} per month, billed monthly through Stripe, and the subscription renews automatically each month until you cancel. The price and billing terms shown at checkout form part of these Terms.
             </p>
             <p>
               The price you pay when you subscribe is locked in for as long as your subscription stays active, and we will not raise it. We may charge a different price to new customers at any time. If you cancel and later subscribe again, the price shown at that time applies. There is no free trial.

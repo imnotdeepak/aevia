@@ -3,6 +3,7 @@ import { ArrowRight, BarChart3, CalendarCheck2, Check, Flame, Columns3, Grid3X3,
 
 import { buttonVariants } from '@/components/ui/button';
 import { GradientBackground } from '@/components/ui/paper-design-shader-background';
+import { PRICE_LABEL, PRICE_PER_MONTH } from '@/lib/pricing';
 import { cn } from '@/lib/utils';
 
 const features = [
@@ -169,13 +170,13 @@ export default function Home() {
         <p className="mx-auto mt-5 max-w-lg text-lg leading-8 text-muted-foreground">One plan, one price, with everything included. No tiers, no upsells.</p>
         <div className="relative mx-auto mt-12 max-w-md overflow-hidden rounded-[2rem] border border-[var(--accent)]/20 bg-[var(--accent)]/[0.07] p-10">
           <p className="relative text-7xl font-semibold tracking-[-0.05em]">
-            <span className="text-[var(--accent)]">$2</span>
+            <span className="text-[var(--accent)]">{PRICE_LABEL}</span>
             <span className="ml-2 text-xl font-normal tracking-normal text-muted-foreground">/ month</span>
           </p>
           <p className="relative mt-4 font-medium">Your price is locked in.</p>
           <ul className="relative mt-6 space-y-3 border-t border-[var(--accent)]/20 pt-6 text-left text-foreground/80">
             {[
-              'Sign up at $2 a month and that price is yours for as long as you stay subscribed',
+              `Sign up at ${PRICE_PER_MONTH} and that price is yours for as long as you stay subscribed`,
               'Prices may rise for new customers, never for existing ones',
               'No hidden fees, add-ons or premium tiers',
               'Cancel any time. Payments are non-refundable.',

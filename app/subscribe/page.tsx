@@ -7,10 +7,11 @@ import { AuthLayout, FormError, SubmitButton } from '@/components/auth/auth-ui';
 import { SignOutButton } from '@/components/sign-out-button';
 import { hasAccess, loadSubscription, syncFromStripe } from '@/lib/billing';
 import { requireSession } from '@/lib/habits';
+import { PRICE_LABEL, PRICE_PER_MONTH } from '@/lib/pricing';
 import { stripeConfigured } from '@/lib/stripe';
 
 const POINTS = [
-  'Sign up at $2 a month and that price is yours for as long as you stay subscribed',
+  `Sign up at ${PRICE_PER_MONTH} and that price is yours for as long as you stay subscribed`,
   'Prices may rise for new customers, never for existing ones',
   'No hidden fees, add-ons or premium tiers',
   'Cancel any time',
@@ -42,7 +43,7 @@ export default async function SubscribePage({ searchParams }: { searchParams: Pr
       <div className="space-y-6">
         <div>
           <p className="text-6xl font-semibold tracking-[-0.05em]">
-            <span className="text-[var(--accent)]">$2</span>
+            <span className="text-[var(--accent)]">{PRICE_LABEL}</span>
             <span className="ml-2 text-lg font-normal tracking-normal text-muted-foreground">/ month</span>
           </p>
           <p className="mt-2 font-medium">Your price is locked in.</p>
@@ -56,7 +57,7 @@ export default async function SubscribePage({ searchParams }: { searchParams: Pr
         {checkout === 'success' && <p className="text-sm text-muted-foreground">We are still confirming your payment. Refresh in a few seconds.</p>}
         <FormError message={error ? (ERRORS[error] ?? ERRORS.checkout) : null} />
         <form action={startCheckout}>
-          <SubmitButton>Subscribe for $2 a month</SubmitButton>
+          <SubmitButton>Subscribe for {PRICE_PER_MONTH}</SubmitButton>
         </form>
         <p className="text-center text-xs text-muted-foreground">
           Cancel any time to stop future charges. Payments are non-refundable (see the <Link href="/terms" target="_blank" className="underline underline-offset-4 hover:text-foreground">Terms</Link>).

@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 import { AuthLayout, FormError, FormField, fieldValue, linkClass, SubmitButton } from '@/components/auth/auth-ui';
 import { authClient } from '@/lib/auth-client';
+import { PRICE_PER_MONTH } from '@/lib/pricing';
 
 export default function SignupPage() {
   const router = useRouter();
@@ -36,7 +37,7 @@ export default function SignupPage() {
   return (
     <AuthLayout
       title="Create your account"
-      subtitle="$2 a month, and your price is locked in while you stay."
+      subtitle={`${PRICE_PER_MONTH}, and your price is locked in while you stay.`}
       footer={<>Already have an account? <Link href="/login" className={linkClass}>Sign in</Link></>}
     >
       <form onSubmit={onSubmit} className="space-y-5">

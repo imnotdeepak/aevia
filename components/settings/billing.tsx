@@ -13,10 +13,10 @@ export function BillingSettings({ info, notice }: { info: SubscriptionInfo | nul
   const comped = info?.comped ?? false;
   const pastDue = info?.status === 'past_due';
 
-  let status = 'Aevia, $2 a month.';
+  let status = 'Your Aevia subscription.';
   if (comped) status = 'Complimentary access. No payment needed.';
-  else if (info?.cancelAtPeriodEnd && info.currentPeriodEnd) status = `Aevia, $2 a month. Your access ends on ${formatDate(info.currentPeriodEnd)}.`;
-  else if (info?.currentPeriodEnd) status = `Aevia, $2 a month. Renews on ${formatDate(info.currentPeriodEnd)}.`;
+  else if (info?.cancelAtPeriodEnd && info.currentPeriodEnd) status = `Your access ends on ${formatDate(info.currentPeriodEnd)}.`;
+  else if (info?.currentPeriodEnd) status = `Renews on ${formatDate(info.currentPeriodEnd)}.`;
 
   return (
     <section className="rounded-[2rem] border border-border bg-card p-8 sm:p-10">
