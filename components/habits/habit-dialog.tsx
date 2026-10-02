@@ -81,6 +81,7 @@ function HabitForm({ initial, onSubmit, onDelete }: Pick<Props, 'initial' | 'onS
       <label className="grid gap-2 text-sm font-medium">
         Name
         <input
+          // oxlint-disable-next-line jsx-a11y/no-autofocus -- the dialog opens for typing a name, so focusing it helps
           autoFocus
           value={name}
           maxLength={60}

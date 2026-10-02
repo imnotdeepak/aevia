@@ -73,6 +73,7 @@ export function BoardView() {
           const list = cards.filter((card) => card.status === column.id);
           const columnOver = over?.status === column.id;
           return (
+            // oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- native drag and drop needs drop handlers on the column
             <section
               key={column.id}
               aria-label={column.title}
@@ -105,6 +106,7 @@ export function BoardView() {
                 {list.map((card) => (
                   <li key={card.id} data-card>
                     {columnOver && dragging && over?.beforeId === card.id && <DropLine color={column.color} />}
+                    {/* oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- native drag and drop needs drag handlers on the card; the arrow buttons are the keyboard alternative */}
                     <article
                       draggable={!isSaving(card)}
                       onDragStart={(event) => {

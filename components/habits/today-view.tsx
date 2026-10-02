@@ -226,7 +226,7 @@ export function TodayView() {
                 <p className="text-lg font-semibold">Start with one habit</p>
                 <p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">Pick a suggestion or type your own above. You can change the days and color of any habit later.</p>
                 <div className="mt-5 flex flex-wrap justify-center gap-2">
-                  {SUGGESTIONS.map((suggestion, index) => (
+                  {SUGGESTIONS.map((suggestion) => (
                     <button key={suggestion} type="button" onClick={() => create({ name: suggestion, color: ACCENT_COLOR, days: ALL_DAYS, weeklyTarget: null, timeOfDay: null })} className="flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]">
                       <Plus className="size-3.5" />{suggestion}
                     </button>
