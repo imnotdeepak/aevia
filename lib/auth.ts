@@ -1,8 +1,10 @@
 import { betterAuth } from 'better-auth';
+import { after } from 'next/server';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
 import { cancelSubscriptionForUser } from '@/lib/billing';
 import { getDb } from '@/lib/db';
+import { sendPasswordResetEmail } from '@/lib/email';
 import { trustedOrigins } from '@/lib/trusted-origins';
 import * as schema from '@/lib/db/schema';
 
@@ -26,11 +28,18 @@ function createAuth() {
     emailAndPassword: {
       enabled: true,
       minPasswordLength: 8,
-      // Turn on once an email provider is configured.
+      // Turn on later if sign-ups should have to confirm their email address.
       requireEmailVerification: false,
-      // No email provider yet: log the reset link so it can be used in development.
       sendResetPassword: async ({ user, url }) => {
-        console.log(`[auth] Password reset link for ${user.email}: ${url}`);
+        const send = () => sendPasswordResetEmail({ to: user.email, name: user.name, url });
+        // Send after the response goes out, so the page answers equally fast whether or not the
+        // address has an account (a slower answer would reveal which emails are registered).
+        try {
+          after(send);
+        } catch {
+          // Not inside a web request (for example a script): just send it now.
+          await send();
+        }
       },
     },
   });

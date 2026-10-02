@@ -140,7 +140,7 @@ export default function PrivacyPolicyPage() {
               <li><strong>Vercel:</strong> application hosting, delivery, and infrastructure services.</li>
               <li><strong>Better Auth:</strong> authentication framework used within Aevia’s application stack.</li>
               <li><strong>Stripe:</strong> payment processing and subscription billing. Stripe collects and processes your payment details under its own privacy policy.</li>
-              <li><strong>Email providers:</strong> if used for verification, password reset, notifications, or support messages.</li>
+              <li><strong>Resend:</strong> sends account emails, such as password-reset links, on our behalf.</li>
             </ul>
           </Section>
 

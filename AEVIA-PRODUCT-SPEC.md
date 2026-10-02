@@ -56,14 +56,14 @@ Next.js 16 (App Router, Turbopack) on Node, React 19, Tailwind v4 with shadcn/ui
 The accent color, background color and text color are all user-chosen, each from presets or a color wheel, applied instantly and saved to the account. Surfaces, borders and muted text derive from the chosen background and text colors, and the interface warns when contrast is low. Habit colors can match the accent. Light backgrounds are supported. The separate light/dark/system modes in §5.1 are **not built**; the base theme is dark and the user adjusts colors directly.
 
 ### Account, billing and data
-- Sign-up with email and password. Password-reset emails are **not yet sent** (the link is only logged on the server); email verification is off.
+- Sign-up with email and password. Password-reset emails are sent through Resend from `noreply@aevia.live` (the link expires after an hour); email verification is off.
 - **Billing:** $2 a month, paid through Stripe Checkout. A subscriber's price is locked in for as long as the subscription stays active; the price for new customers may change, and someone who cancels and resubscribes pays the then-current price. The dashboard is locked until the subscription is active (past-due stays open while Stripe retries). The Stripe billing portal handles card changes, invoices and cancellation. Payments are non-refundable (stated in the Terms, on the pricing card, on the subscribe page and on Stripe Checkout), except where the law requires otherwise. Individual accounts can be marked complimentary.
 - **Export:** a JSON download of everything stored about the user (§45); the CSV exports in §45 are **not built**.
 - **Deletion:** the user can delete their account from Settings with their password. The Stripe subscription is cancelled first, then all data is removed (§44's staged workflow is simplified to a single confirmed step).
 - **Undo:** an Undo message follows ticking a habit, completing or deleting a task, deleting a habit and deleting a board card.
 
 ### Not built yet
-Terms of Service and Privacy Policy pages, password-reset email, recurring tasks, mindset tracking, weekly and monthly habit views, schedule versioning, CSV export, and a production deployment.
+Recurring tasks, mindset tracking, weekly and monthly habit views, schedule versioning, CSV export, and a production deployment.
 
 ---
 
