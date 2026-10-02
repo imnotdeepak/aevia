@@ -119,6 +119,25 @@ export const habitFreeze = pgTable(
   ],
 );
 
+export const consent = pgTable(
+  'consent',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    // 'terms' or 'privacy'.
+    document: text('document').notNull(),
+    // The LEGAL_VERSION the person agreed to (see lib/legal.ts).
+    version: text('version').notNull(),
+    acceptedAt: timestamp('accepted_at').notNull().defaultNow(),
+  },
+  (table) => [
+    unique('consent_user_document_version_unique').on(table.userId, table.document, table.version),
+    index('consent_user_idx').on(table.userId),
+  ],
+);
+
 export const subscription = pgTable('subscription', {
   userId: text('user_id')
     .primaryKey()

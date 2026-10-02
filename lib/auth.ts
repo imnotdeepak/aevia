@@ -1,8 +1,10 @@
 import { betterAuth } from 'better-auth';
+import { APIError, createAuthMiddleware } from 'better-auth/api';
 import { after } from 'next/server';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
 import { cancelSubscriptionForUser } from '@/lib/billing';
+import { recordConsent } from '@/lib/consent';
 import { getDb } from '@/lib/db';
 import { sendPasswordResetEmail } from '@/lib/email';
 import { trustedOrigins } from '@/lib/trusted-origins';
@@ -16,6 +18,29 @@ function createAuth() {
     // Verify sessions from a short-lived signed cookie instead of querying Neon on every
     // page navigation. Sign-out and revocation take effect within maxAge.
     session: { cookieCache: { enabled: true, maxAge: 5 * 60 } },
+    // Creating an account means agreeing to the Terms and Privacy Policy. The sign-up form sends
+    // acceptedTerms: true after the checkbox; requiring it here means it cannot be skipped by calling the API directly.
+    hooks: {
+      before: createAuthMiddleware(async (ctx) => {
+        if (ctx.path === '/sign-up/email' && (ctx.body as { acceptedTerms?: unknown } | undefined)?.acceptedTerms !== true) {
+          throw new APIError('BAD_REQUEST', { message: 'Please agree to the Terms of Service and Privacy Policy to create an account.' });
+        }
+      }),
+    },
+    databaseHooks: {
+      user: {
+        create: {
+          after: async (account) => {
+            // Best effort: a failure here must never stop someone from signing up, but it is logged.
+            try {
+              await recordConsent(account.id);
+            } catch (error) {
+              console.error('[consent] Could not record acceptance of the Terms for a new account', error);
+            }
+          },
+        },
+      },
+    },
     user: {
       deleteUser: {
         enabled: true,

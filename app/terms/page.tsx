@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { LEGAL_EFFECTIVE_DATE as EFFECTIVE_DATE } from "@/lib/legal";
 import { PRICE_LABEL } from "@/lib/pricing";
 
 export const metadata = {
@@ -7,7 +8,6 @@ export const metadata = {
   description: "Aevia Terms of Service",
 };
 
-const EFFECTIVE_DATE = "October 1, 2026";
 const CONTACT_EMAIL = "support@lycheecorp.com";
 const SITE = "https://aevia.live";
 
@@ -274,8 +274,7 @@ export default function TermsOfServicePage() {
             </p>
             <p>
               Where required, we may ask you to accept a new version before
-              continuing to use the Service. Aevia may keep records of the Terms
-              version and acceptance timestamp.
+              continuing to use the Service. Aevia keeps a record of which version of the Terms you accepted, and when.
             </p>
           </Section>
 

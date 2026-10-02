@@ -1,11 +1,12 @@
 import Link from "next/link";
 
+import { LEGAL_EFFECTIVE_DATE as EFFECTIVE_DATE } from "@/lib/legal";
+
 export const metadata = {
   title: "Privacy Policy | Aevia",
   description: "Aevia Privacy Policy",
 };
 
-const EFFECTIVE_DATE = "October 1, 2026";
 const CONTACT_EMAIL = "support@lycheecorp.com";
 const SITE = "https://aevia.live";
 
@@ -186,7 +187,7 @@ export default function PrivacyPolicyPage() {
 
           <Section title="11. Account deletion">
             <p>
-              When you confirm account deletion with your password, Aevia deletes user-owned application records from live systems, including appearance settings, habits, check-ins, freeze records, tasks, board cards, and subscription records.
+              When you confirm account deletion with your password, Aevia deletes user-owned application records from live systems, including appearance settings, habits, check-ins, freeze records, tasks, board cards, consent records, and subscription records.
             </p>
             <p>
               Your paid subscription is cancelled immediately, so you will not be billed again. Stripe may keep payment and invoice records as required by law and under its own privacy policy.
@@ -204,13 +205,10 @@ export default function PrivacyPolicyPage() {
 
           <Section title="13. Consent records">
             <p>
-              When acceptance of the Terms of Service or Privacy Policy is
-              required, Aevia may store the document type, version, and exact
-              acceptance timestamp.
+              When you create an account you must agree to the Terms of Service and Privacy Policy. Aevia then stores which version of each document you agreed to, and the exact time.
             </p>
             <p>
-              Historical consent records may be retained as immutable records
-              where needed to demonstrate which version you accepted.
+              These records are included in your data export and are deleted when you delete your account.
             </p>
           </Section>
 

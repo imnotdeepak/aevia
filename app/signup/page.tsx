@@ -24,7 +24,9 @@ export default function SignupPage() {
       name: fieldValue(form, 'name'),
       email: fieldValue(form, 'email'),
       password,
-    });
+      // Read by the server, which refuses to create the account without it (see lib/auth.ts).
+      acceptedTerms: fieldValue(form, 'terms') === 'on',
+    } as Parameters<typeof authClient.signUp.email>[0]);
     if (error) {
       setPending(false);
       return setError(error.message ?? 'Could not create your account.');

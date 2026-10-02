@@ -3,7 +3,7 @@ import { headers } from 'next/headers';
 
 import { getAuth } from '@/lib/auth';
 import { getDb } from '@/lib/db';
-import { boardCard, habit, habitCompletion, habitFreeze, subscription, task, user, userSettings } from '@/lib/db/schema';
+import { boardCard, consent, habit, habitCompletion, habitFreeze, subscription, task, user, userSettings } from '@/lib/db/schema';
 
 // Everything Aevia stores about the signed-in user, as a JSON download.
 export async function GET() {
@@ -12,7 +12,7 @@ export async function GET() {
 
   const db = getDb();
   const id = session.user.id;
-  const [account, habits, completions, freezes, tasks, cards, settings, billing] = await Promise.all([
+  const [account, habits, completions, freezes, tasks, cards, settings, billing, agreements] = await Promise.all([
     db.select({ name: user.name, email: user.email, createdAt: user.createdAt }).from(user).where(eq(user.id, id)),
     db.select().from(habit).where(eq(habit.userId, id)),
     db.select().from(habitCompletion).where(eq(habitCompletion.userId, id)),
@@ -21,6 +21,7 @@ export async function GET() {
     db.select().from(boardCard).where(eq(boardCard.userId, id)),
     db.select().from(userSettings).where(eq(userSettings.userId, id)),
     db.select().from(subscription).where(eq(subscription.userId, id)),
+    db.select().from(consent).where(eq(consent.userId, id)),
   ]);
 
   const datesFor = (rows: { habitId: string; date: string }[], habitId: string) =>
@@ -44,6 +45,7 @@ export async function GET() {
     tasks: tasks.map((row) => ({ title: row.title, date: row.date, done: row.done })),
     board: cards.map((row) => ({ title: row.title, notes: row.notes, column: row.status })),
     appearance: settings[0] ? { accent: settings[0].accent, background: settings[0].background, text: settings[0].foreground } : null,
+    agreedTo: agreements.map((row) => ({ document: row.document, version: row.version, acceptedAt: row.acceptedAt })),
     // Payment card details are held by Stripe, not by Aevia.
     subscription: billing[0]
       ? { status: billing[0].status, complimentary: billing[0].comped, currentPeriodEnd: billing[0].currentPeriodEnd, cancelsAtPeriodEnd: billing[0].cancelAtPeriodEnd }
